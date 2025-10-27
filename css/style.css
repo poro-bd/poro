@@ -1,0 +1,224 @@
+:root {
+    --color-primary: #007bff;
+    --color-background-light: #f8f9fc;
+    --color-card-light: #fff;
+    --color-text-light: #333;
+    --color-background-dark: #1a1a1a;
+    --color-card-dark: #2a2a2a;
+    --color-text-dark: #eee;
+    --font-family: sans-serif;
+    --font-size-base: 1rem;
+    --spacing-base: 1rem;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+    --background-color: var(--color-background-dark);
+    --card-background-color: var(--color-card-dark);
+    --text-color: var(--color-text-dark);
+}
+
+/* Custom styles to override or extend Pico.css */
+
+/* Header and Navigation */
+header.container {
+    position: sticky;
+    top: 0;
+    background-color: var(--card-background-color, var(--color-card-light));
+    box-shadow: var(--box-shadow);
+    z-index: 10;
+    padding: var(--spacing-base);
+}
+
+nav {
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* Left, Center, Right */
+    align-items: center;
+    gap: var(--spacing-base);
+}
+
+.nav__logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: var(--text-color, var(--color-text-light));
+}
+
+.nav__date {
+    justify-self: center;
+    font-size: 0.9rem;
+    color: var(--text-color, var(--color-text-light));
+}
+
+nav ul:last-child {
+    justify-content: flex-end;
+}
+
+nav ul li a {
+    transition: color 0.2s ease-in-out;
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--border-radius);
+}
+
+nav ul li a:hover, nav ul li a:focus {
+    color: var(--color-primary);
+    background-color: rgba(0, 123, 255, 0.1); /* Using a direct rgba for primary color */
+    outline: none;
+}
+
+.nav__profile-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: block; /* Ensure it's visible */
+}
+
+.nav__toggle {
+    display: none; /* Hidden by default on desktop */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--text-color, var(--color-text-light));
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    nav ul:first-child li:last-child .nav__toggle {
+        display: block; /* Show toggle button on mobile */
+    }
+
+    nav ul:first-child {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-base);
+    }
+
+/* Dashboard Layout */
+main.container section {
+    padding: var(--spacing-base) 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: var(--spacing-base);
+}
+
+.weekly-schedule article {
+    background-color: var(--card-background-color, var(--color-card-light));
+    padding: var(--spacing-base);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.weekly-schedule__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-base);
+}
+
+.weekly-schedule__days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+}
+
+.day {
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+}
+
+.day--today {
+    background-color: var(--color-primary);
+    color: #fff;
+}
+
+.right-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-base);
+}
+
+/* Footer */
+footer.container {
+    text-align: center;
+    padding: var(--spacing-base);
+    margin-top: var(--spacing-base);
+}
+
+.theme-switcher {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: var(--card-background-color, var(--color-card-light));
+    color: var(--text-color, var(--color-text-light));
+    border: 1px solid var(--text-color, var(--color-text-light));
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: var(--box-shadow);
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    nav {
+        grid-template-columns: auto auto 1fr; /* Logo, Toggle, Date (hidden) */
+    }
+
+    .nav__date {
+        display: none;
+    }
+
+    nav ul:nth-child(3) {
+        display: none; /* Hide full menu on mobile */
+    }
+
+    nav ul:first-child li:last-child {
+        display: block; /* Show toggle button */
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Mobile menu overlay */
+    nav.nav__menu--visible ul:nth-child(3) {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0; /* Slide from left */
+        background-color: var(--card-background-color, var(--color-card-light));
+        box-shadow: var(--box-shadow);
+        border-radius: var(--border-radius);
+        padding: var(--spacing-base);
+        width: 100%;
+        text-align: center;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+    nav.nav__menu--visible ul:nth-child(3) li {
+        width: 100%;
+    }
+
+    nav ul:nth-child(3) {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+}
