@@ -23,4 +23,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 800);
         }, 12000);
     }
+
+    const dashboardBtn = document.getElementById('dashboard-btn');
+    const devBtn = document.getElementById('dev-btn');
+    const dashboardBlinkOverlay = dashboardBtn.querySelector('.blink-overlay');
+    const devBlinkOverlay = devBtn.querySelector('.blink-overlay');
+
+    dashboardBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        dashboardBlinkOverlay.classList.add('blink-animation');
+        setTimeout(() => {
+            window.location.href = '/dashboard';
+        }, 600);
+    });
+
+    devBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        devBlinkOverlay.classList.add('blink-animation');
+        setTimeout(() => {
+            window.location.href = '/dev';
+        }, 600);
+    });
 });
