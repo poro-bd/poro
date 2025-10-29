@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Email validation function
     function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[\S@]+@[\S@]+\.[\S@]+$/;
         return emailRegex.test(email);
     }
     
@@ -101,16 +101,39 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Modal button handlers
     backHomeBtn.addEventListener('click', function() {
-    // Optional: reset the form before navigating away
-    contactForm.reset();
-    selectedOptionText.textContent = 'Select a field';
-    hiddenInput.value = '';
-    
-    // Redirect to home page in the same tab
-    window.location.href = '/';
-});
+        const blinkOverlay = backHomeBtn.querySelector('.blink-overlay');
+        if (blinkOverlay) {
+            blinkOverlay.classList.add('blink-animation');
+            setTimeout(() => {
+                blinkOverlay.classList.remove('blink-animation');
+                window.location.href = '/';
+            }, 600);
+        }
+    });
     
     bookCallBtn.addEventListener('click', function() {
-        window.open('https://calendly.com/asayman/consultancy  ', '_blank');
+        const blinkOverlay = bookCallBtn.querySelector('.blink-overlay');
+        if (blinkOverlay) {
+            blinkOverlay.classList.add('blink-animation');
+            setTimeout(() => {
+                blinkOverlay.classList.remove('blink-animation');
+                window.open('https://calendly.com/asayman/consultancy', '_blank');
+            }, 600);
+        }
+    });
+
+    const buttons = document.querySelectorAll('.social-link, .calendly-link, .back-link');
+    buttons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const blinkOverlay = button.querySelector('.blink-overlay');
+            if (blinkOverlay) {
+                blinkOverlay.classList.add('blink-animation');
+                setTimeout(() => {
+                    blinkOverlay.classList.remove('blink-animation');
+                    window.open(button.href, '_blank');
+                }, 600);
+            }
+        });
     });
 });
