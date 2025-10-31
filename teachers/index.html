@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poro Teachers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1c375b;
+            --secondary: #6f8197;
+            --accent: #ff6b6b;
+            --accent2: #4facfe;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            min-height: 100vh;
+            background-size: 400% 400%;
+            animation: gradientBg 20s ease infinite;
+        }
+
+        @keyframes gradientBg {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        *:focus {
+            outline: none !important;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(28, 55, 91, 0.3);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 50%, #f093fb 100%);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #ff8787 0%, #ff6b6b 50%, #ee5a6f 100%);
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #ff6b6b rgba(28, 55, 91, 0.3);
+        }
+
+        /* Layout */
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar (same as before) */
+        .sidebar {
+            width: 280px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 30px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ff6b6b 0%, #ee5a6f 50%, #f093fb 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 20px 0;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 25px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #f093fb 100%);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .nav-item:hover::before, .nav-item.active::before {
+            transform: scaleY(1);
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+        }
+
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+
+        .user-profile:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b 0%, #f093fb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .user-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-meta {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .mobile-menu-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ff6b6b 0%, #ee5a6f 50%, #f093fb 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .school-logo {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 8px;
+            object-fit: contain;
+        }
+
+        /* Filters Bar */
+        .filters-bar {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+        }
+
+        .search-icon svg {
+            fill: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .filter-select {
+            padding: 12px 40px 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            appearance: none;
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+
+        .filter-select:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .filter-select option {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Teachers Grid */
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .teacher-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .teacher-card::before {
+            content: '';
+            position: absolute;
+            top: 150%;
+            left: 150%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                135deg,
+                transparent 0%,
+                transparent 40%,
+                rgba(255, 255, 255, 0.1) 50%,
+                transparent 60%,
+                transparent 100%
+            );
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .teacher-card:hover::before {
+            top: -50%;
+            left: -50%;
+            opacity: 1;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .teacher-avatar-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            position: relative;
+        }
+
+        .teacher-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .teacher-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 5px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .teacher-profession {
+            font-size: 0.95rem;
+            text-align: center;
+            color: #4facfe;
+            font-weight: 500;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .page-btn {
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .page-btn.active {
+            background: linear-gradient(135deg, #ff6b6b 0%, #f093fb 100%);
+            border-color: transparent;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .page-btn:disabled:hover {
+            transform: none;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: rgba(28, 55, 91, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .modal-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-header-info {
+            flex: 1;
+        }
+
+        .modal-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            background: linear-gradient(90deg, #ff6b6b 0%, #ee5a6f 50%, #f093fb 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-profession {
+            font-size: 1.1rem;
+            color: #4facfe;
+            font-weight: 500;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .close-modal svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-section {
+            margin-bottom: 25px;
+        }
+
+        .modal-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .modal-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .modal-value {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.95);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-link {
+            color: #4facfe;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: #00f2fe;
+            text-decoration: underline;
+        }
+
+        .notes-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .notes-list li {
+            padding: 10px 0 10px 25px;
+            position: relative;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+        }
+
+        .notes-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #ff6b6b;
+            font-size: 1.5rem;
+            line-height: 1.2;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 80px 20px 20px 20px;
+            }
+
+            .content-header {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .school-logo {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+            }
+
+            .filters-bar {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .filter-select {
+                width: 100%;
+            }
+
+            .teachers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 10px;
+            }
+
+            .modal-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .pagination {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" onclick="toggleSidebar()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+            </svg>
+        </button>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">Poro</div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="/dashboard" class="nav-item">
+                    <span class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                        </svg>
+                    </span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/settings" class="nav-item">
+                    <span class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+                        </svg>
+                    </span>
+                    <span>Settings</span>
+                </a>
+                <a href="/announcements" class="nav-item">
+                    <span class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                        </svg>
+                    </span>
+                    <span>Announcements</span>
+                </a>
+                <a href="/routine" class="nav-item">
+                    <span class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                        </svg>
+                    </span>
+                    <span>Routine</span>
+                </a>
+                <a href="/teachers" class="nav-item active">
+                    <span class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                        </svg>
+                    </span>
+                    <span>Teachers</span>
+                </a>
+                <a href="/homework" class="nav-item">
+                    <span class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                        </svg>
+                    </span>
+                    <span>Homework</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="/profile" class="user-profile">
+                    <div class="user-avatar">JD</div>
+                    <div class="user-info">
+                        <div class="user-name">John Doe</div>
+                        <div class="user-meta">@johndoe • Class 10-A</div>
+                    </div>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-header">
+                <h1 class="page-title">Teachers</h1>
+                <img src="https://via.placeholder.com/60" alt="college_logo" class="school-logo">
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-bar">
+                <div class="search-box">
+                    <div class="search-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </div>
+                    <input type="text" class="search-input" placeholder="Search teachers..." id="searchInput" oninput="filterTeachers()">
+                </div>
+                <select class="filter-select" id="subjectFilter" onchange="filterTeachers()">
+                    <option value="">All Subjects</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Biology">Biology</option>
+                    <option value="English">English</option>
+                    <option value="History">History</option>
+                </select>
+                <select class="filter-select" id="sortBy" onchange="filterTeachers()">
+                    <option value="name">Sort by Name</option>
+                    <option value="subject">Sort by Subject</option>
+                </select>
+            </div>
+
+            <!-- Teachers Grid -->
+            <div class="teachers-grid" id="teachersGrid">
+                <!-- Teachers will be dynamically loaded here -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <!-- Pagination will be dynamically loaded here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="teacherModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+            </button>
+            <div class="modal-header">
+                <img id="modalAvatar" src="" alt="" class="modal-avatar">
+                <div class="modal-header-info">
+                    <h2 class="modal-name" id="modalName"></h2>
+                    <p class="modal-profession" id="modalProfession"></p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <div class="modal-label">Contact Number</div>
+                    <div class="modal-value">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="#4facfe">
+                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                        </svg>
+                        <a href="#" class="contact-link" id="modalPhone"></a>
+                    </div>
+                </div>
+                <div class="modal-section">
+                    <div class="modal-label">Email</div>
+                    <div class="modal-value">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="#4facfe">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                        <a href="#" class="contact-link" id="modalEmail"></a>
+                    </div>
+                </div>
+                <div class="modal-section">
+                    <div class="modal-label">Student Notes</div>
+                    <ul class="notes-list" id="modalNotes">
+                        <!-- Notes will be dynamically loaded here -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Teachers data
+        const teachersData = [
+            {
+                id: 1,
+                name: 'Dr. Sarah Johnson',
+                profession: 'Mathematics',
+                phone: '+1 (555) 123-4567',
+                email: 'sarah.johnson@school.edu',
+                avatar: 'https://i.pravatar.cc/150?img=1',
+                notes: [
+                    'Excellent at explaining complex algebra concepts',
+                    'Very patient and approachable',
+                    'Office hours: Monday & Wednesday 3-5 PM',
+                    'Responds to emails within 24 hours'
+                ]
+            },
+            {
+                id: 2,
+                name: 'Prof. Michael Chen',
+                profession: 'Physics',
+                phone: '+1 (555) 234-5678',
+                email: 'michael.chen@school.edu',
+                avatar: 'https://i.pravatar.cc/150?img=33',
+                notes: [
+                    'Makes physics fun with practical experiments',
+                    'Strict about deadlines but fair grading',
+                    'Best teacher for mechanics and thermodynamics',
+                    'Holds extra revision sessions before exams'
+                ]
+            },
+            {
+                id: 3,
+                name: 'Ms. Emily Davis',
+                profession: 'Chemistry',
+                phone: '+1 (555) 345-6789',
+                email: 'emily.davis@school.edu',
+                avatar: 'https://i.pravatar.cc/150?img=5',
+                notes: [
+                    'Lab safety is her top priority',
+                    'Great at organic chemistry explanations',
+                    'Provides detailed study materials',
+                    'Available for doubt clearing on Fridays'
+                ]
+            },
+            {
+                id: 4,
+                name: 'Mr. James Wilson',
+                profession: 'Biology',
+                phone: '+1 (555) 456-7890',
+                email: 'james.wilson@school.edu',
+                avatar: 'https://i.pravatar.cc/150?img=12',
+                notes: [
+                    'Passionate about ecology and evolution',
+                    'Organizes great field trips',
+                    'Encourages research projects',
+                    'Very supportive of student initiatives'
+                ]
+            },
+            {
+                id: 5,
+                name: 'Dr. Lisa Anderson',
+                profession: 'English',
+                phone: '+1 (555) 567-8901',
+                email: 'lisa.anderson@school.edu',
+                avatar: 'https://i.pravatar.cc/150?img=9',
+                notes: [
+                    'Excellent literature analysis skills',
+                    'Helps improve writing and grammar',
+                    'Organizes monthly book club meetings',
+                    'Gives constructive feedback on essays'
+                ]
+            },
+            {
+                id: 6,
+                name: 'Prof. Robert Taylor',
+                profession: 'History',
+                phone: '+1 (555) 678-9012',
+                email: 'robert.taylor@school.edu',
+                avatar: 'https://i.pravatar.cc/150?img=14',
+                notes: [
+                    'Makes history engaging with stories',
+                    'Expert in world war history',
+                    'Assigns interesting research topics',
+                    'Uses multimedia in teaching'
+                ]
+            },
+            {
+                id: 7,
+                name: 'Dr. Amanda White',
+                profession: 'Mathematics',
+                phone: '+1 (555) 789-0123',
+                email: 'amanda.white@school.edu',
+                avatar: 'https://i.pravatar.cc/150?img=20',
+                notes: [
+                    'Specializes in calculus and statistics',
+                    'Provides extra practice problems',
+                    'Very organized and structured teaching',
+                    'Quick response to student queries'
+                ]
+            },
+            {
+                id: 8,
+                name: 'Mr. David Brown',
+                profession: 'Physics',
+                phone: '+1 (555) 890-1234',
+                email: 'david.brown@school.edu',
+                avatar: 'https://i.pravatar.cc/150?img=15',
+                notes: [
+                    'Great at quantum physics explanations',
+                    'Uses animations and simulations',
+                    'Encourages critical thinking',
+                    'Flexible with assignment submissions'
+                ]
+            },
+            {
+                id: 9,
+                name: 'Ms. Jennifer Lee',
+                profession: 'Chemistry',
+                phone: '+1 (555) 901-2345',
+                email: 'jennifer.lee@school.edu',
+                avatar: 'https://i.pravatar.cc/150?img=25',
+                notes: [
+                    'Expert in inorganic chemistry',
+                    'Patient with slow learners',
+                    'Provides exam tips and tricks',
+                    'Maintains detailed lab records'
+                ]
+            },
+            {
+                id: 10,
+                name: 'Prof. Thomas Garcia',
+                profession: 'Biology',
+                phone: '+1 (555) 012-3456',
+                email: 'thomas.garcia@school.edu',
+                avatar: 'https://i.pravatar.cc/150?img=13',
+                notes: [
+                    'Specializes in human anatomy',
+                    'Uses 3D models for teaching',
+                    'Conducts practical lab sessions',
+                    'Helpful with competitive exam prep'
+                ]
+            },
+            {
+                id: 11,
+                name: 'Dr. Maria Rodriguez',
+                profession: 'English',
+                phone: '+1 (555) 123-4560',
+                email: 'maria.rodriguez@school.edu',
+                avatar: 'https://i.pravatar.cc/150?img=32',
+                notes: [
+                    'Focus on creative writing skills',
+                    'Organizes poetry workshops',
+                    'Encourages public speaking',
+                    'Provides personalized feedback'
+                ]
+            },
+            {
+                id: 12,
+                name: 'Mr. Christopher Martinez',
+                profession: 'History',
+                phone: '+1 (555) 234-5601',
+                email: 'chris.martinez@school.edu',
+                avatar: 'https://i.pravatar.cc/150?img=11',
+                notes: [
+                    'Expert in ancient civilizations',
+                    'Uses documentary films in class',
+                    'Organizes museum visits',
+                    'Fair and transparent grading'
+                ]
+            }
+        ];
+
+        let currentPage = 1;
+        const itemsPerPage = 6;
+        let filteredTeachers = [...teachersData];
+
+        // Get page from URL
+        function getPageFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const page = parseInt(params.get('p')) || 1;
+            return page;
+        }
+
+        // Update URL with page
+        function updateURL(page) {
+            const url = new URL(window.location);
+            url.searchParams.set('p', page);
+            window.history.pushState({}, '', url);
+        }
+
+        // Filter teachers
+        function filterTeachers() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const subjectFilter = document.getElementById('subjectFilter').value;
+            const sortBy = document.getElementById('sortBy').value;
+
+            // Filter
+            filteredTeachers = teachersData.filter(teacher => {
+                const matchesSearch = teacher.name.toLowerCase().includes(searchTerm) || 
+                                     teacher.profession.toLowerCase().includes(searchTerm);
+                const matchesSubject = !subjectFilter || teacher.profession === subjectFilter;
+                return matchesSearch && matchesSubject;
+            });
+
+            // Sort
+            if (sortBy === 'name') {
+                filteredTeachers.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortBy === 'subject') {
+                filteredTeachers.sort((a, b) => a.profession.localeCompare(b.profession));
+            }
+
+            currentPage = 1;
+            updateURL(1);
+            renderTeachers();
+            renderPagination();
+        }
+
+        // Render teachers
+        function renderTeachers() {
+            const grid = document.getElementById('teachersGrid');
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const teachersToShow = filteredTeachers.slice(startIndex, endIndex);
+
+            grid.innerHTML = teachersToShow.map(teacher => `
+                <div class="teacher-card" onclick="openModal(${teacher.id})">
+                    <div class="teacher-avatar-wrapper">
+                        <img src="${teacher.avatar}" alt="${teacher.name}" class="teacher-avatar">
+                    </div>
+                    <h3 class="teacher-name">${teacher.name}</h3>
+                    <p class="teacher-profession">${teacher.profession}</p>
+                </div>
+            `).join('');
+        }
+
+        // Render pagination
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredTeachers.length / itemsPerPage);
+            const pagination = document.getElementById('pagination');
+
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let paginationHTML = `
+                <button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                    </svg>
+                </button>
+            `;
+
+            // Show page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                    paginationHTML += `
+                        <button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">
+                            ${i}
+                        </button>
+                    `;
+                } else if (i === currentPage - 2 || i === currentPage + 2) {
+                    paginationHTML += `<span style="color: rgba(255,255,255,0.5);">...</span>`;
+                }
+            }
+
+            paginationHTML += `
+                <button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                    </svg>
+                </button>
+            `;
+
+            pagination.innerHTML = paginationHTML;
+        }
+
+        // Change page
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredTeachers.length / itemsPerPage);
+            if (page < 1 || page > totalPages) return;
+            
+            currentPage = page;
+            updateURL(page);
+            renderTeachers();
+            renderPagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Open modal
+        function openModal(teacherId) {
+            const teacher = teachersData.find(t => t.id === teacherId);
+            if (!teacher) return;
+
+            document.getElementById('modalAvatar').src = teacher.avatar;
+            document.getElementById('modalName').textContent = teacher.name;
+            document.getElementById('modalProfession').textContent = teacher.profession;
+            document.getElementById('modalPhone').textContent = teacher.phone;
+            document.getElementById('modalPhone').href = `tel:${teacher.phone}`;
+            document.getElementById('modalEmail').textContent = teacher.email;
+            document.getElementById('modalEmail').href = `mailto:${teacher.email}`;
+            
+            const notesList = document.getElementById('modalNotes');
+            notesList.innerHTML = teacher.notes.map(note => `<li>${note}</li>`).join('');
+
+            document.getElementById('teacherModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('teacherModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on outside click
+        document.getElementById('teacherModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Toggle sidebar for mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (window.innerWidth <= 768 && 
+                sidebar.classList.contains('active') && 
+                !sidebar.contains(event.target) && 
+                !menuBtn.contains(event.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+
+        // Initialize
+        window.addEventListener('DOMContentLoaded', function() {
+            currentPage = getPageFromURL();
+            renderTeachers();
+            renderPagination();
+        });
+
+        // Handle browser back/forward
+        window.addEventListener('popstate', function() {
+            currentPage = getPageFromURL();
+            renderTeachers();
+            renderPagination();
+        });
+    </script>
+</body>
+</html>
