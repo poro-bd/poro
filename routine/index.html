@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poro - Dashboard</title>
+    <title>Poro Routine</title>
     <style>
         * {
             margin: 0;
@@ -162,6 +162,8 @@
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
         }
 
         .user-profile:hover {
@@ -241,7 +243,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .page-title {
@@ -262,176 +264,149 @@
             object-fit: contain;
         }
 
-        /* Navigation Cards */
-        .nav-cards-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-
-        .nav-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px;
+        /* Days Container */
+        .days-container {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            gap: 20px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
+            gap: 15px;
         }
 
-        .nav-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .nav-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .nav-card:hover::before {
-            opacity: 1;
-        }
-
-        .nav-card-icon {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .nav-card:hover .nav-card-icon {
-            transform: scale(1.1);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .nav-card-icon svg {
-            width: 30px;
-            height: 30px;
-            fill: white;
-        }
-
-        .nav-card-content {
-            flex: 1;
-            width: 100%;
-        }
-
-        .nav-card-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #ff6b6b 0%, #ee5a6f 50%, #f093fb 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-card-description {
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.5;
-        }
-
-        .nav-card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        .nav-card-badge {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .nav-card-arrow {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .nav-card:hover .nav-card-arrow {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateX(5px);
-        }
-
-        .nav-card-arrow svg {
-            width: 16px;
-            height: 16px;
-            fill: white;
-        }
-
-        /* Welcome Section */
-        .welcome-section {
+        .day-card {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            margin-bottom: 30px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .day-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 25px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .welcome-content h2 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #ff6b6b 0%, #ee5a6f 50%, #f093fb 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .day-header:hover {
+            background: rgba(255, 255, 255, 0.05);
         }
 
-        .welcome-content p {
+        .day-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .day-date {
+            font-size: 1rem;
             color: rgba(255, 255, 255, 0.7);
-            max-width: 500px;
+            margin-top: 5px;
         }
 
-        .welcome-illustration {
-            width: 120px;
-            height: 120px;
+        .day-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .today-label {
+            background: linear-gradient(135deg, #ff6b6b 0%, #f093fb 100%);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .day-arrow {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .day-arrow svg {
+            fill: rgba(255, 255, 255, 0.7);
+        }
+
+        .day-card.active .day-arrow {
+            transform: rotate(180deg);
+        }
+
+        .day-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .day-card.active .day-content {
+            max-height: 2000px;
+        }
+
+        .periods-list {
+            padding: 0 30px 30px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .period-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
-            justify-content: center;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.1);
+            gap: 15px;
         }
 
-        .welcome-illustration svg {
-            width: 80px;
-            height: 80px;
-            fill: white;
+        .period-time {
+            min-width: 120px;
+            font-weight: 600;
+            color: #4facfe;
+        }
+
+        .period-details {
+            flex: 1;
+        }
+
+        .subject-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+
+        .teacher-name {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .empty-period {
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+        }
+
+        .tiffin-item {
+            background: rgba(79, 172, 254, 0.15);
+            justify-content: center;
+            text-align: center;
+        }
+
+        .tiffin-text {
+            color: #4facfe;
+            font-weight: 600;
+        }
+
+        .end-item {
+            background: rgba(76, 175, 80, 0.1);
+            justify-content: center;
+            text-align: center;
+        }
+
+        .end-text {
+            color: #4caf50;
+            font-weight: 600;
         }
 
         /* Mobile Responsive */
@@ -469,14 +444,32 @@
                 right: 20px;
             }
 
-            .nav-cards-container {
-                grid-template-columns: 1fr;
+            .day-header {
+                padding: 20px;
             }
 
-            .welcome-section {
+            .day-info {
+                flex-direction: row;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .day-name {
+                font-size: 1.2rem;
+            }
+
+            .day-date {
+                font-size: 0.9rem;
+            }
+
+            .periods-list {
+                padding: 0 20px 20px 20px;
+            }
+
+            .period-item {
                 flex-direction: column;
-                gap: 20px;
-                text-align: center;
+                align-items: flex-start;
+                gap: 10px;
             }
         }
     </style>
@@ -497,7 +490,7 @@
             </div>
 
             <nav class="sidebar-nav">
-                <a href="/dashboard" class="nav-item active">
+                <a href="/dashboard" class="nav-item">
                     <span class="nav-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
@@ -521,7 +514,7 @@
                     </span>
                     <span>Announcements</span>
                 </a>
-                <a href="/routine" class="nav-item">
+                <a href="/routine" class="nav-item active">
                     <span class="nav-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
@@ -561,167 +554,174 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="content-header">
-                <h1 class="page-title">Dashboard</h1>
+                <h1 class="page-title">Class Routine</h1>
                 <img src="https://via.placeholder.com/60" alt="college_logo" class="school-logo">
             </div>
 
-            <!-- Welcome Section -->
-            <div class="welcome-section">
-                <div class="welcome-content">
-                    <h2>Welcome back, John!</h2>
-                    <p>Here's everything you need for today. Check your schedule, assignments, and more.</p>
-                </div>
-                <div class="welcome-illustration">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
-                </div>
-            </div>
-
-            <!-- Navigation Cards -->
-            <div class="nav-cards-container">
-                <a href="/profile" class="nav-card">
-                    <div class="nav-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                        </svg>
-                    </div>
-                    <div class="nav-card-content">
-                        <h3 class="nav-card-title">Profile</h3>
-                        <p class="nav-card-description">View and edit your personal information, academic details, and account settings.</p>
-                    </div>
-                    <div class="nav-card-footer">
-                        <span class="nav-card-badge">Updated</span>
-                        <div class="nav-card-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="/settings" class="nav-card">
-                    <div class="nav-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
-                        </svg>
-                    </div>
-                    <div class="nav-card-content">
-                        <h3 class="nav-card-title">Settings</h3>
-                        <p class="nav-card-description">Customize your preferences, notification settings, and application behavior.</p>
-                    </div>
-                    <div class="nav-card-footer">
-                        <span class="nav-card-badge">Customize</span>
-                        <div class="nav-card-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="/announcements" class="nav-card">
-                    <div class="nav-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
-                        </svg>
-                    </div>
-                    <div class="nav-card-content">
-                        <h3 class="nav-card-title">Announcements</h3>
-                        <p class="nav-card-description">Stay updated with the latest school announcements, events, and important notices.</p>
-                    </div>
-                    <div class="nav-card-footer">
-                        <span class="nav-card-badge">3 New</span>
-                        <div class="nav-card-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="/routine" class="nav-card">
-                    <div class="nav-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
-                        </svg>
-                    </div>
-                    <div class="nav-card-content">
-                        <h3 class="nav-card-title">Routine</h3>
-                        <p class="nav-card-description">View your class schedule, upcoming exams, and academic calendar.</p>
-                    </div>
-                    <div class="nav-card-footer">
-                        <span class="nav-card-badge">Today</span>
-                        <div class="nav-card-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="/teachers" class="nav-card">
-                    <div class="nav-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
-                        </svg>
-                    </div>
-                    <div class="nav-card-content">
-                        <h3 class="nav-card-title">Teachers</h3>
-                        <p class="nav-card-description">Find contact information and details about your teachers and faculty members.</p>
-                    </div>
-                    <div class="nav-card-footer">
-                        <span class="nav-card-badge">12 Faculty</span>
-                        <div class="nav-card-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="/homework" class="nav-card">
-                    <div class="nav-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
-                        </svg>
-                    </div>
-                    <div class="nav-card-content">
-                        <h3 class="nav-card-title">Homework</h3>
-                        <p class="nav-card-description">Track assignments, submit work, and check deadlines for all your subjects.</p>
-                    </div>
-                    <div class="nav-card-footer">
-                        <span class="nav-card-badge">2 Due</span>
-                        <div class="nav-card-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
+            <div class="days-container" id="daysContainer">
+                <!-- Generated by JS -->
             </div>
         </main>
     </div>
 
     <script>
-        // Toggle sidebar for mobile
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
+        // Routine data
+        const scheduleData = {
+            periods: [
+                { period: 'Period 1', time: '8:00 AM - 9:00 AM' },
+                { period: 'Period 2', time: '9:00 AM - 10:00 AM' },
+                { period: 'Period 3', time: '10:00 AM - 11:00 AM' },
+                { period: 'Period 4', time: '11:00 AM - 12:00 PM' },
+                { period: 'Tiffin Break', time: '12:00 PM - 12:30 PM' },
+                { period: 'Period 5', time: '12:30 PM - 1:30 PM' },
+                { period: 'Period 6', time: '1:30 PM - 2:30 PM' },
+                { period: 'End of Day', time: '2:30 PM' }
+            ],
+            subjects: {
+                Mathematics: { teacher: 'Dr. Sarah Johnson', avatar: 'https://i.pravatar.cc/150?img=1' },
+                Physics: { teacher: 'Prof. Michael Chen', avatar: '  https://i.pravatar.cc/150?img=33' },
+                Chemistry: { teacher: 'Ms. Emily Davis', avatar: '  https://i.pravatar.cc/150?img=5' },
+                Biology: { teacher: 'Mr. James Wilson', avatar: '  https://i.pravatar.cc/150?img=12' },
+                English: { teacher: 'Dr. Lisa Anderson', avatar: '  https://i.pravatar.cc/150?img=9' },
+                History: { teacher: 'Prof. Robert Taylor', avatar: '  https://i.pravatar.cc/150?img=14' },
+                'Computer Science': { teacher: 'Mr. David Brown', avatar: '  https://i.pravatar.cc/150?img=15' },
+                'Physical Education': { teacher: 'Coach Sarah Williams', avatar: '  https://i.pravatar.cc/150?img=20' }
+            },
+            days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            routine: {
+                Sunday: ['Mathematics', 'Physics', 'Chemistry', 'Biology', null, 'English', 'History', null],
+                Monday: ['Physics', 'Mathematics', 'English', 'Chemistry', null, 'Biology', 'Computer Science', null],
+                Tuesday: ['Chemistry', 'Biology', 'Mathematics', 'Physics', null, 'History', 'English', null],
+                Wednesday: ['Biology', 'Chemistry', 'Computer Science', 'Mathematics', null, 'Physics', 'English', null],
+                Thursday: ['English', 'History', 'Physics', 'Chemistry', null, 'Mathematics', 'Biology', null],
+                Friday: ['Mathematics', 'Computer Science', 'Biology', 'English', null, 'Physics', 'Chemistry', null],
+                Saturday: ['History', 'English', 'Mathematics', 'Physical Education', null, 'Chemistry', 'Physics', null]
+            }
+        };
+
+        // Get today's day name
+        function getTodayDayName() {
+            return scheduleData.days[new Date().getDay()];
         }
 
-        // Close sidebar when clicking outside on mobile
+        // Get date string in DD/MM/YYYY format
+        function formatDate(date) {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        // Toggle sidebar
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // Close sidebar on mobile click outside
         document.addEventListener('click', function(event) {
             const sidebar = document.getElementById('sidebar');
             const menuBtn = document.querySelector('.mobile-menu-btn');
-
-            if (window.innerWidth <= 768 &&
-                sidebar.classList.contains('active') &&
-                !sidebar.contains(event.target) &&
-                !menuBtn.contains(event.target)) {
+            if (window.innerWidth <= 768 && sidebar.classList.contains('active') &&
+                !sidebar.contains(event.target) && !menuBtn.contains(event.target)) {
                 sidebar.classList.remove('active');
             }
         });
+
+        // Toggle day card (now allows multiple to be open)
+        function toggleDay(dayName) {
+            const card = document.getElementById(`day-${dayName}`);
+            card.classList.toggle('active');
+        }
+
+        // Render days
+        function renderDays() {
+            const today = getTodayDayName();
+            const todayIndex = scheduleData.days.indexOf(today);
+            const sortedDays = [];
+            
+            // Create sorted days starting from today
+            for (let i = 0; i < scheduleData.days.length; i++) {
+                const index = (todayIndex + i) % scheduleData.days.length;
+                sortedDays.push(scheduleData.days[index]);
+            }
+            
+            const container = document.getElementById('daysContainer');
+            const todayDate = new Date();
+
+            container.innerHTML = sortedDays.map((day, index) => {
+                const isToday = day === today;
+                const periods = scheduleData.routine[day];
+                const date = new Date();
+                date.setDate(todayDate.getDate() + index);
+                const dateString = formatDate(date);
+
+                return `
+                    <div class="day-card" id="day-${day}">
+                        <div class="day-header" onclick="toggleDay('${day}')">
+                            <div class="day-info">
+                                <div style="display: flex; align-items: center;">
+                                    <div class="day-name">${day}</div>
+                                    ${isToday ? '<span class="today-label">Today</span>' : ''}
+                                </div>
+                                <div class="day-date">${dateString}</div>
+                            </div>
+                            <div class="day-arrow">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="day-content">
+                            <div class="periods-list">
+                                ${scheduleData.periods.map((periodInfo, idx) => {
+                                    if (periodInfo.period === 'Tiffin Break') {
+                                        return `
+                                            <div class="period-item tiffin-item">
+                                                <span class="tiffin-text">☕ Tiffin Break (30 min)</span>
+                                            </div>
+                                        `;
+                                    }
+                                    if (periodInfo.period === 'End of Day') {
+                                        return `
+                                            <div class="period-item end-item">
+                                                <span class="end-text">🏁 End of Day</span>
+                                            </div>
+                                        `;
+                                    }
+
+                                    const subject = periods[idx];
+                                    if (!subject) {
+                                        return `
+                                            <div class="period-item">
+                                                <div class="period-time">${periodInfo.time}</div>
+                                                <div class="period-details">
+                                                    <span class="empty-period">— No class —</span>
+                                                </div>
+                                            </div>
+                                        `;
+                                    }
+
+                                    const subj = scheduleData.subjects[subject];
+                                    return `
+                                        <div class="period-item">
+                                            <div class="period-time">${periodInfo.time}</div>
+                                            <div class="period-details">
+                                                <div class="subject-name">${subject}</div>
+                                                <div class="teacher-name">${subj.teacher}</div>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Initialize
+        renderDays();
     </script>
 </body>
 </html>
+
