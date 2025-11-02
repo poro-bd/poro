@@ -1,0 +1,73 @@
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 80px 20px 20px 20px;
+    }
+
+    .content-header {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .school-logo {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+    }
+
+    .announcement-header {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .announcement-meta {
+        width: 100%;
+    }
+
+    .announcement-time {
+        align-items: flex-start;
+    }
+
+    .announcement-body {
+        padding: 0 20px 20px 20px;
+    }
+
+    .announcement-footer {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+        padding: 15px 20px;
+    }
+
+    .footer-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .filter-tabs {
+        flex-wrap: wrap;
+        padding-bottom: 10px;
+    }
+
+    .filter-tab {
+        white-space: nowrap;
+    }
+}

@@ -1,0 +1,53 @@
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+--primary: #1c375b;
+--secondary: #6f8197;
+--accent: #ff6b6b;
+--accent2: #4facfe;
+}
+
+body {
+background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+color: white;
+min-height: 100vh;
+background-size: 400% 400%;
+animation: gradientBg 20s ease infinite;
+}
+
+@keyframes gradientBg {
+0%, 100% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+}
+
+*:focus {
+outline: none !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+width: 10px;
+}
+
+::-webkit-scrollbar-track {
+background: rgba(28, 55, 91, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 50%, #f093fb 100%);
+border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+background: linear-gradient(135deg, #ff8787 0%, #ff6b6b 50%, #ee5a6f 100%);
+}
+
+* {
+scrollbar-width: thin;
+scrollbar-color: #ff6b6b rgba(28, 55, 91, 0.3);
+}

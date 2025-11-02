@@ -1,0 +1,46 @@
+/* Background animation */
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Subtle floating elements */
+.floating-element {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 0;
+    opacity: 0.1;
+}
+
+.floating-1 {
+    width: 250px;
+    height: 250px;
+    top: 5%;
+    right: 8%;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+    animation: float 18s ease-in-out infinite;
+}
+
+.floating-2 {
+    width: 180px;
+    height: 180px;
+    bottom: 12%;
+    left: 12%;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+    animation: float 22s ease-in-out infinite 4s;
+}
+
+.floating-3 {
+    width: 120px;
+    height: 120px;
+    top: 20%;
+    left: 10%;
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+    animation: float 28s ease-in-out infinite 6s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-25px) rotate(5deg); }
+}

@@ -1,0 +1,67 @@
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none; /* (Optional) disables long-press menus on iOS */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --primary: #1c375b;
+    --secondary: #6f8197;
+    --accent: #ff6b6b;
+    --ai-highlight: #ffd166;
+}
+
+body {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    position: relative;
+    overflow-x: hidden;
+    background-size: 400% 400%;
+    animation: gradientBg 20s ease infinite;
+}
+
+@keyframes gradientBg {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+*:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(28, 55, 91, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 50%, #f093fb 100%);
+    border-radius: 10px;
+    border: 2px solid rgba(28, 55, 91, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #ff8787 0%, #ff6b6b 50%, #ee5a6f 100%);
+}
+
+/* Firefox scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #ff6b6b rgba(28, 55, 91, 0.3);
+}

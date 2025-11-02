@@ -1,0 +1,86 @@
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .profile-card {
+        padding: 40px 30px;
+    }
+
+    .profile-header {
+        gap: 25px;
+    }
+
+    .profile-image {
+        width: 140px;
+        height: 140px;
+    }
+
+    .name {
+        font-size: 2.2rem;
+    }
+
+    .title {
+        font-size: 1.2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .experience-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .experience-logo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-form {
+        padding: 30px 20px;
+    }
+
+    .modal {
+        padding: 30px 20px;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 500px) {
+    .profile-card {
+        padding: 30px 20px;
+    }
+
+    .name {
+        font-size: 1.8rem;
+    }
+
+    .project-card {
+        padding: 20px;
+    }
+    
+    .skill-card.ai-highlight::after {
+        font-size: 0.7rem;
+        padding: 4px 30px;
+        right: -35px;
+    }
+
+    .cta-title {
+        font-size: 1.8rem;
+    }
+
+    .cta-subtitle {
+        font-size: 1rem;
+    }
+}

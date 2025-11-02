@@ -1,0 +1,210 @@
+.section {
+    margin-top: 40px;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.projects {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.project-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 150%;
+    left: 150%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        135deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(255, 255, 255, 0.15) 50%,
+        transparent 60%,
+        transparent 100%
+    );
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover::before {
+    top: -50%;
+    left: -50%;
+    opacity: 1;
+}
+
+.project-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.project-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ff6b6b;
+    transition: color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.project-card:hover .project-name {
+    color: #ff8787;
+}
+
+.project-link {
+    color: #4facfe;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    display: inline-block;
+    padding: 5px 10px;
+    margin: -5px -10px;
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.project-link:hover {
+    color: #00f2fe;
+    text-decoration: underline;
+}
+
+.project-description {
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 10px;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.project-tag {
+    background: rgba(79, 172, 254, 0.2);
+    color: #4facfe;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid rgba(79, 172, 254, 0.3);
+    transition: all 0.3s ease;
+}
+
+.project-card:hover .project-tag {
+    background: rgba(79, 172, 254, 0.3);
+    border-color: rgba(79, 172, 254, 0.5);
+    transform: translateY(-2px);
+}
+
+.experience-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+.experience-card::before {
+    content: '';
+    position: absolute;
+    top: 150%;
+    left: 150%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        135deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(255, 255, 255, 0.15) 50%,
+        transparent 60%,
+        transparent 100%
+    );
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.experience-card:hover::before {
+    top: -50%;
+    left: -50%;
+    opacity: 1;
+}
+
+.experience-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.experience-logo {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 8px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.experience-card:hover .experience-logo {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.experience-content {
+    flex: 1;
+}
+
+.experience-company {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #ff6b6b;
+    transition: color 0.3s ease;
+}
+
+.experience-card:hover .experience-company {
+    color: #ff8787;
+}
+
+.experience-role {
+    font-size: 1.1rem;
+    color: #4facfe;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.experience-description {
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+}

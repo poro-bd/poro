@@ -1,0 +1,144 @@
+/* Days Container */
+.days-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.day-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.day-header:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.day-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.day-date {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 5px;
+}
+
+.day-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.today-label {
+    background: linear-gradient(135deg, #ff6b6b 0%, #f093fb 100%);
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.day-arrow {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+}
+
+.day-arrow svg {
+    fill: rgba(255, 255, 255, 0.7);
+}
+
+.day-card.active .day-arrow {
+    transform: rotate(180deg);
+}
+
+.day-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+
+.day-card.active .day-content {
+    max-height: 2000px;
+}
+
+.periods-list {
+    padding: 0 30px 30px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.period-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.period-time {
+    min-width: 120px;
+    font-weight: 600;
+    color: #4facfe;
+}
+
+.period-details {
+    flex: 1;
+}
+
+.subject-name {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 3px;
+}
+
+.teacher-name {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.empty-period {
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+}
+
+.tiffin-item {
+    background: rgba(79, 172, 254, 0.15);
+    justify-content: center;
+    text-align: center;
+}
+
+.tiffin-text {
+    color: #4facfe;
+    font-weight: 600;
+}
+
+.end-item {
+    background: rgba(76, 175, 80, 0.1);
+    justify-content: center;
+    text-align: center;
+}
+
+.end-text {
+    color: #4caf50;
+    font-weight: 600;
+}
