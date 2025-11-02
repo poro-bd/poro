@@ -882,14 +882,14 @@ body {
     gap: 10px;
     margin-top: 40px;
     padding: 14px 30px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); /* Blue gradient */
+    border: none; /* Remove border as gradient provides visual weight */
     border-radius: 50px;
     color: white;
     text-decoration: none;
-    font-weight: 500;
-    transition: all 0.4s ease;
-    backdrop-filter: blur(10px);
+    font-weight: 600; /* Make font bolder */
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4); /* Add shadow */
     position: relative;
     overflow: hidden;
     z-index: 10;
@@ -923,9 +923,9 @@ body {
 }
 
 .back-link:hover {
-    transform: translateX(-5px);
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-3px); /* Lift effect */
+    box-shadow: 0 8px 20px rgba(79, 172, 254, 0.6); /* Enhanced shadow */
+    background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); /* Reverse gradient on hover */
 }
 
 .blink-overlay {
