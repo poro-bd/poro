@@ -1,0 +1,28 @@
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .error-code {
+        font-size: 6rem;
+    }
+    
+    .error-title {
+        font-size: 2rem;
+    }
+    
+    .error-message {
+        font-size: 1.3rem;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 500px) {
+    .btn-container {
+        flex-direction: column;
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

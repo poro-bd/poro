@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Poro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="variables.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="background.css">
+    <link rel="stylesheet" href="typography.css">
+    <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="buttons.css">
+    <link rel="stylesheet" href="responsive.css">
+</head>
+<body>
+    <!-- Floating background elements -->
+    <div class="floating-element floating-1"></div>
+    <div class="floating-element floating-2"></div>
+    <div class="floating-element floating-3"></div>
+    
+    <div class="container">
+        <h1 class="logo">Poro</h1>
+        <h2 class="login-title">Welcome Back</h2>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="id" class="form-label">User ID</label>
+                <input type="text" id="id" class="form-input" placeholder="Enter your ID" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+            </div>
+            
+            <div class="error-message" id="errorMessage"></div>
+            
+            <div class="btn-container">
+                <button type="submit" class="btn btn-primary">
+                    <span class="btn-icon login-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24" height="24">
+                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                        </svg>
+                    </span>
+                    Login
+                    <div class="blink-overlay"></div>
+                </button>
+                <a href="/" class="btn btn-outline">
+                    <span class="btn-icon home-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24" height="24">
+                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                        </svg>
+                    </span>
+                    Return Home
+                    <div class="blink-overlay"></div>
+                </a>
+            </div>
+        </form>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

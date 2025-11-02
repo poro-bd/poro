@@ -122,8 +122,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    const buttons = document.querySelectorAll('.social-link, .calendly-link, .back-link');
-    buttons.forEach(button => {
+    const socialAndCalendlyLinks = document.querySelectorAll('.social-link, .calendly-link');
+    socialAndCalendlyLinks.forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
             const blinkOverlay = button.querySelector('.blink-overlay');
@@ -136,4 +136,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    const backLink = document.querySelector('.back-link');
+    if (backLink) {
+        backLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const blinkOverlay = backLink.querySelector('.blink-overlay');
+            if (blinkOverlay) {
+                blinkOverlay.classList.add('blink-animation');
+                setTimeout(() => {
+                    blinkOverlay.classList.remove('blink-animation');
+                    window.location.href = backLink.href;
+                }, 600);
+            }
+        });
+    }
 });

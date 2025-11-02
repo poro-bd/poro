@@ -4,482 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poro - Dashboard</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary: #1c375b;
-            --secondary: #6f8197;
-            --accent: #ff6b6b;
-            --accent2: #4facfe;
-        }
-
-        body {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            min-height: 100vh;
-            background-size: 400% 400%;
-            animation: gradientBg 20s ease infinite;
-        }
-
-        @keyframes gradientBg {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        *:focus {
-            outline: none !important;
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(28, 55, 91, 0.3);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 50%, #f093fb 100%);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #ff8787 0%, #ff6b6b 50%, #ee5a6f 100%);
-        }
-
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: #ff6b6b rgba(28, 55, 91, 0.3);
-        }
-
-        /* Layout */
-        .dashboard-container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 280px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            height: 100vh;
-            z-index: 1000;
-            transition: transform 0.3s ease;
-        }
-
-        .sidebar-header {
-            padding: 30px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .sidebar-logo {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #ff6b6b 0%, #ee5a6f 50%, #f093fb 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-align: center;
-        }
-
-        .sidebar-nav {
-            flex: 1;
-            padding: 20px 0;
-            overflow-y: auto;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px 25px;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 4px;
-            background: linear-gradient(135deg, #ff6b6b 0%, #f093fb 100%);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-        }
-
-        .nav-item:hover, .nav-item.active {
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-        }
-
-        .nav-item:hover::before, .nav-item.active::before {
-            transform: scaleY(1);
-        }
-
-        .nav-icon {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .nav-icon svg {
-            width: 100%;
-            height: 100%;
-            fill: currentColor;
-        }
-
-        .sidebar-footer {
-            padding: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .user-profile:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .user-avatar {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ff6b6b 0%, #f093fb 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .user-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .user-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .user-meta {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.6);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* Mobile Menu Button */
-        .mobile-menu-btn {
-            display: none;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1001;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            padding: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .mobile-menu-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .mobile-menu-btn svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            margin-left: 280px;
-            padding: 30px;
-            transition: margin-left 0.3s ease;
-        }
-
-        .content-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-
-        .page-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #ff6b6b 0%, #ee5a6f 50%, #f093fb 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .school-logo {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 12px;
-            padding: 8px;
-            object-fit: contain;
-        }
-
-        /* Navigation Cards */
-        .nav-cards-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-
-        .nav-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 20px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .nav-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .nav-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .nav-card:hover::before {
-            opacity: 1;
-        }
-
-        .nav-card-icon {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .nav-card:hover .nav-card-icon {
-            transform: scale(1.1);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .nav-card-icon svg {
-            width: 30px;
-            height: 30px;
-            fill: white;
-        }
-
-        .nav-card-content {
-            flex: 1;
-            width: 100%;
-        }
-
-        .nav-card-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #ff6b6b 0%, #ee5a6f 50%, #f093fb 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-card-description {
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.5;
-        }
-
-        .nav-card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        .nav-card-badge {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .nav-card-arrow {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .nav-card:hover .nav-card-arrow {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateX(5px);
-        }
-
-        .nav-card-arrow svg {
-            width: 16px;
-            height: 16px;
-            fill: white;
-        }
-
-        /* Welcome Section */
-        .welcome-section {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .welcome-content h2 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #ff6b6b 0%, #ee5a6f 50%, #f093fb 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .welcome-content p {
-            color: rgba(255, 255, 255, 0.7);
-            max-width: 500px;
-        }
-
-        .welcome-illustration {
-            width: 120px;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .welcome-illustration svg {
-            width: 80px;
-            height: 80px;
-            fill: white;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 80px 20px 20px 20px;
-            }
-
-            .content-header {
-                flex-direction: column;
-                gap: 20px;
-                align-items: flex-start;
-            }
-
-            .page-title {
-                font-size: 2rem;
-            }
-
-            .school-logo {
-                position: fixed;
-                top: 20px;
-                right: 20px;
-            }
-
-            .nav-cards-container {
-                grid-template-columns: 1fr;
-            }
-
-            .welcome-section {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="variables.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="cards.css">
+    <link rel="stylesheet" href="welcome.css">
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="dashboard-container">
@@ -547,181 +80,334 @@
                 </a>
             </nav>
 
-            <div class="sidebar-footer">
-                <a href="/profile" class="user-profile">
-                    <div class="user-avatar">JD</div>
-                    <div class="user-info">
-                        <div class="user-name">John Doe</div>
-                        <div class="user-meta">@johndoe • Class 10-A</div>
-                    </div>
-                </a>
-            </div>
-        </aside>
+                        <div class="sidebar-footer">
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <div class="content-header">
-                <h1 class="page-title">Dashboard</h1>
-                <img src="https://via.placeholder.com/60" alt="college_logo" class="school-logo">
-            </div>
+                            <a href="/profile" class="user-profile">
 
-            <!-- Welcome Section -->
-            <div class="welcome-section">
-                <div class="welcome-content">
-                    <h2>Welcome back, John!</h2>
-                    <p>Here's everything you need for today. Check your schedule, assignments, and more.</p>
+                                <div class="user-avatar"></div>
+
+                                <div class="user-info">
+
+                                    <div class="user-name"></div>
+
+                                    <div class="user-meta"></div>
+
+                                </div>
+
+                            </a>
+
+                        </div>
+
+                    </aside>
+
+            
+
+                    <!-- Main Content -->
+
+                    <main class="main-content">
+
+                        <div class="content-header">
+
+                            <h1 class="page-title">Dashboard</h1>
+
+                            <img src="https://via.placeholder.com/60" alt="college_logo" class="school-logo">
+
+                        </div>
+
+            
+
+                        <!-- Quranic Verse Section -->
+
+                        <div class="welcome-section quran-verse-section">
+
+                            <div class="welcome-content">
+
+                                <h2 class="quran-arabic" dir="rtl">رَبِّ زِدْنِي عِلْمًا</h2>
+
+                                <p class="quran-translation">"My Lord, increase me in knowledge."</p>
+
+                                <p class="quran-reference">
+
+                                    <a href="https://quran.com/20/114" target="_blank" class="quran-link">
+
+                                        Quran 20:114
+
+                                        <span class="reference-icon">
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+
+                                                <path d="M10 6V8H16.5L6 18.5L7.5 20L18 9.5V16H20V6H10Z"/>
+
+                                            </svg>
+
+                                        </span>
+
+                                    </a>
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+            
+
+                        <!-- Navigation Cards -->
+
+                        <div class="nav-cards-container">
+
+                            <a href="/profile" class="nav-card">
+
+                                <div class="nav-card-icon">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+
+                                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+
+                                    </svg>
+
+                                </div>
+
+                                <div class="nav-card-content">
+
+                                    <h3 class="nav-card-title">Profile</h3>
+
+                                    <p class="nav-card-description">View and edit your personal information, academic details, and account settings.</p>
+
+                                </div>
+
+                                <div class="nav-card-footer">
+
+                                    <span class="nav-card-badge">Updated</span>
+
+                                    <div class="nav-card-arrow">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+
+                                            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+
+                                        </svg>
+
+                                    </div>
+
+                                </div>
+
+                            </a>
+
+            
+
+                            <a href="/settings" class="nav-card">
+
+                                <div class="nav-card-icon">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+
+                                        <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+
+                                    </svg>
+
+                                </div>
+
+                                <div class="nav-card-content">
+
+                                    <h3 class="nav-card-title">Settings</h3>
+
+                                    <p class="nav-card-description">Customize your preferences, notification settings, and application behavior.</p>
+
+                                </div>
+
+                                <div class="nav-card-footer">
+
+                                    <span class="nav-card-badge">Customize</span>
+
+                                    <div class="nav-card-arrow">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+
+                                            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+
+                                        </svg>
+
+                                    </div>
+
+                                </div>
+
+                            </a>
+
+            
+
+                            <a href="/announcements" class="nav-card">
+
+                                <div class="nav-card-icon">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+
+                                        <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+
+                                    </svg>
+
+                                </div>
+
+                                <div class="nav-card-content">
+
+                                    <h3 class="nav-card-title">Announcements</h3>
+
+                                    <p class="nav-card-description">Stay updated with the latest school announcements, events, and important notices.</p>
+
+                                </div>
+
+                                <div class="nav-card-footer">
+
+                                    <span class="nav-card-badge">3 New</span>
+
+                                    <div class="nav-card-arrow">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+
+                                            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+
+                                        </svg>
+
+                                    </div>
+
+                                </div>
+
+                            </a>
+
+            
+
+                            <a href="/routine" class="nav-card">
+
+                                <div class="nav-card-icon">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+
+                                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+
+                                    </svg>
+
+                                </div>
+
+                                <div class="nav-card-content">
+
+                                    <h3 class="nav-card-title">Routine</h3>
+
+                                    <p class="nav-card-description">View your class schedule, upcoming exams, and academic calendar.</p>
+
+                                </div>
+
+                                <div class="nav-card-footer">
+
+                                    <span class="nav-card-badge">Today</span>
+
+                                    <div class="nav-card-arrow">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+
+                                            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+
+                                        </svg>
+
+                                    </div>
+
+                                </div>
+
+                            </a>
+
+            
+
+                            <a href="/teachers" class="nav-card">
+
+                                <div class="nav-card-icon">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+
+                                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+
+                                    </svg>
+
+                                </div>
+
+                                <div class="nav-card-content">
+
+                                    <h3 class="nav-card-title">Teachers</h3>
+
+                                    <p class="nav-card-description">Find contact information and details about your teachers and faculty members.</p>
+
+                                </div>
+
+                                <div class="nav-card-footer">
+
+                                    <span class="nav-card-badge">12 Faculty</span>
+
+                                    <div class="nav-card-arrow">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+
+                                            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+
+                                        </svg>
+
+                                    </div>
+
+                                </div>
+
+                            </a>
+
+            
+
+                            <a href="/homework" class="nav-card">
+
+                                <div class="nav-card-icon">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+
+                                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+
+                                    </svg>
+
+                                </div>
+
+                                <div class="nav-card-content">
+
+                                    <h3 class="nav-card-title">Homework</h3>
+
+                                    <p class="nav-card-description">Track assignments, submit work, and check deadlines for all your subjects.</p>
+
+                                </div>
+
+                                <div class="nav-card-footer">
+
+                                    <span class="nav-card-badge">2 Due</span>
+
+                                    <div class="nav-card-arrow">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+
+                                            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+
+                                        </svg>
+
+                                    </div>
+
+                                </div>
+
+                            </a>
+
+                        </div>
+
+                    </main>
+
                 </div>
-                <div class="welcome-illustration">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
-                </div>
-            </div>
 
-            <!-- Navigation Cards -->
-            <div class="nav-cards-container">
-                <a href="/profile" class="nav-card">
-                    <div class="nav-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                        </svg>
-                    </div>
-                    <div class="nav-card-content">
-                        <h3 class="nav-card-title">Profile</h3>
-                        <p class="nav-card-description">View and edit your personal information, academic details, and account settings.</p>
-                    </div>
-                    <div class="nav-card-footer">
-                        <span class="nav-card-badge">Updated</span>
-                        <div class="nav-card-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
+            
 
-                <a href="/settings" class="nav-card">
-                    <div class="nav-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
-                        </svg>
-                    </div>
-                    <div class="nav-card-content">
-                        <h3 class="nav-card-title">Settings</h3>
-                        <p class="nav-card-description">Customize your preferences, notification settings, and application behavior.</p>
-                    </div>
-                    <div class="nav-card-footer">
-                        <span class="nav-card-badge">Customize</span>
-                        <div class="nav-card-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
+                <script src="script.js"></script>
 
-                <a href="/announcements" class="nav-card">
-                    <div class="nav-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
-                        </svg>
-                    </div>
-                    <div class="nav-card-content">
-                        <h3 class="nav-card-title">Announcements</h3>
-                        <p class="nav-card-description">Stay updated with the latest school announcements, events, and important notices.</p>
-                    </div>
-                    <div class="nav-card-footer">
-                        <span class="nav-card-badge">3 New</span>
-                        <div class="nav-card-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
+                <script src="../miniProfile.js" defer></script>
 
-                <a href="/routine" class="nav-card">
-                    <div class="nav-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
-                        </svg>
-                    </div>
-                    <div class="nav-card-content">
-                        <h3 class="nav-card-title">Routine</h3>
-                        <p class="nav-card-description">View your class schedule, upcoming exams, and academic calendar.</p>
-                    </div>
-                    <div class="nav-card-footer">
-                        <span class="nav-card-badge">Today</span>
-                        <div class="nav-card-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
+            </body>
 
-                <a href="/teachers" class="nav-card">
-                    <div class="nav-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
-                        </svg>
-                    </div>
-                    <div class="nav-card-content">
-                        <h3 class="nav-card-title">Teachers</h3>
-                        <p class="nav-card-description">Find contact information and details about your teachers and faculty members.</p>
-                    </div>
-                    <div class="nav-card-footer">
-                        <span class="nav-card-badge">12 Faculty</span>
-                        <div class="nav-card-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
+            </html>
 
-                <a href="/homework" class="nav-card">
-                    <div class="nav-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
-                        </svg>
-                    </div>
-                    <div class="nav-card-content">
-                        <h3 class="nav-card-title">Homework</h3>
-                        <p class="nav-card-description">Track assignments, submit work, and check deadlines for all your subjects.</p>
-                    </div>
-                    <div class="nav-card-footer">
-                        <span class="nav-card-badge">2 Due</span>
-                        <div class="nav-card-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </main>
-    </div>
-
-    <script>
-        // Toggle sidebar for mobile
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
-        }
-
-        // Close sidebar when clicking outside on mobile
-        document.addEventListener('click', function(event) {
-            const sidebar = document.getElementById('sidebar');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-
-            if (window.innerWidth <= 768 &&
-                sidebar.classList.contains('active') &&
-                !sidebar.contains(event.target) &&
-                !menuBtn.contains(event.target)) {
-                sidebar.classList.remove('active');
-            }
-        });
-    </script>
-</body>
-</html>
+            

@@ -1,0 +1,224 @@
+/* Header Actions */
+.header-actions {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.audit-btn {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.audit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
+.audit-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: white;
+}
+
+/* Days Container */
+.days-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.day-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.day-header::before {
+    content: '';
+    position: absolute;
+    top: 150%;
+    left: 150%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        135deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 60%,
+        transparent 100%
+    );
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.day-header:hover::before {
+    top: -50%;
+    left: -50%;
+    opacity: 1;
+}
+
+.day-header:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.day-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.day-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ff6b6b;
+}
+
+.day-date {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.day-arrow {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+}
+
+.day-arrow svg {
+    fill: rgba(255, 255, 255, 0.7);
+}
+
+.day-card.active .day-arrow {
+    transform: rotate(180deg);
+}
+
+.day-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+
+.day-card.active .day-content {
+    max-height: 2000px;
+}
+
+.periods-list {
+    padding: 0 30px 30px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.period-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.period-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.period-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.period-number {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #4facfe;
+}
+
+.period-time {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.period-details {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.teacher-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.period-info {
+    flex: 1;
+}
+
+.subject-name {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 3px;
+}
+
+.teacher-name {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 10px;
+}
+
+.homework-list {
+    padding-left: 20px;
+}
+
+.homework-item {
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 10px;
+}
+
+.homework-item::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #ff6b6b;
+    font-size: 1.2rem;
+}
+
+.tiffin-period {
+    background: rgba(79, 172, 254, 0.1);
+    border-color: rgba(79, 172, 254, 0.3);
+}
+
+.tiffin-period:hover {
+    background: rgba(79, 172, 254, 0.15);
+}
