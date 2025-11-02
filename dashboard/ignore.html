@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Hover Card</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            right: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.5s;
+            z-index: 10;
+        }
+
+        .card {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: width 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
+                        height 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s,
+                        opacity 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            opacity: 0;
+            transform-origin: top center;
+        }
+
+        .card-content {
+            padding: 20px;
+            padding-left: 90px;
+            opacity: 0;
+            transition: opacity 0.3s ease 0.2s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .college-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .eiin-number {
+            font-size: 12px;
+            color: #718096;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .eiin-label {
+            font-size: 10px;
+            color: #a0aec0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+
+        /* Hover states for mobile (tap) and desktop */
+        .container:hover .card,
+        .container:active .card {
+            width: calc(100vw - 40px);
+            max-width: 380px;
+            height: 130px;
+            opacity: 1;
+            transition: width 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
+                        height 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+                        opacity 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .container:hover .logo,
+        .container:active .logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            top: 30px;
+            right: auto;
+            left: 20px;
+            font-size: 28px;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
+        }
+
+        .container:hover .card-content,
+        .container:active .card-content {
+            opacity: 1;
+        }
+
+        /* Tablet and larger screens */
+        @media (min-width: 768px) {
+            body {
+                padding: 40px;
+            }
+
+            .container {
+                width: 80px;
+                height: 80px;
+            }
+
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 32px;
+            }
+
+            .card {
+                width: 80px;
+                height: 80px;
+            }
+
+            .card-content {
+                padding: 30px;
+                padding-left: 120px;
+            }
+
+            .college-name {
+                font-size: 20px;
+                margin-bottom: 8px;
+            }
+
+            .eiin-number {
+                font-size: 13px;
+            }
+
+            .eiin-label {
+                font-size: 11px;
+                margin-bottom: 4px;
+            }
+
+            .container:hover .card,
+            .container:active .card {
+                width: 400px;
+                height: 150px;
+                transition: width 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
+                            height 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+                            opacity 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            }
+
+            .container:hover .logo,
+            .container:active .logo {
+                width: 90px;
+                height: 90px;
+                top: 30px;
+                left: 25px;
+                font-size: 36px;
+                transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
+            }
+        }
+
+        /* Desktop screens */
+        @media (min-width: 1024px) {
+            .college-name {
+                font-size: 24px;
+            }
+
+            .eiin-number {
+                font-size: 14px;
+            }
+
+            .container:hover .card {
+                height: 160px;
+                transition: width 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
+                            height 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+                            opacity 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            }
+
+            .container:hover .logo {
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
+                transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-content">
+                <h2 class="college-name">Dhaka International University</h2>
+                <div>
+                    <p class="eiin-label">EIIN Number</p>
+                    <p class="eiin-number">123456</p>
+                </div>
+            </div>
+        </div>
+        <div class="logo">D</div>
+    </div>
+</body>
+</html>

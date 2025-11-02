@@ -84,13 +84,16 @@
 }
 
 .modal-btn-secondary {
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); /* Blue gradient */
     color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: none; /* Remove border as gradient provides visual weight */
+    box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4); /* Add shadow */
 }
 
 .modal-btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); /* Reverse gradient on hover */
+    transform: translateY(-3px); /* Lift effect */
+    box-shadow: 0 8px 20px rgba(79, 172, 254, 0.6); /* Enhanced shadow */
 }
 
 .modal-btn-primary {

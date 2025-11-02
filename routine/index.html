@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="sidebar.css">
     <link rel="stylesheet" href="routine.css">
     <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="/collegeLogo.css">
 </head>
 <body>
     <div class="dashboard-container">
@@ -91,7 +92,19 @@
         <main class="main-content">
             <div class="content-header">
                 <h1 class="page-title">Class Routine</h1>
-                <img src="https://via.placeholder.com/60" alt="college_logo" class="school-logo">
+                                <div class="container">
+                                                                                <div class="card">
+                                                                                    <div class="bg"></div>
+                                                                                    <div class="card-content">
+                                                                                        <h2 class="college-name"></h2>
+                                                                                        <div>
+                                                                                            <p class="eiin-label">EIIN Number</p>
+                                                                                            <p class="eiin-number"></p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="logo"></div>
+                                                                            </div>
             </div>
 
             <div class="days-container" id="daysContainer">
@@ -102,6 +115,8 @@
 
     <script src="script.js"></script>
     <script src="../miniProfile.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+    <script src="/collegeLogo.js" defer></script>
 </body>
 </html>
 
