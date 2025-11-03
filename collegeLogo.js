@@ -1,5 +1,5 @@
 (function() {
-    const BASE_URL = 'http://localhost:5678';
+    
     const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
 
     document.addEventListener('DOMContentLoaded', () => {

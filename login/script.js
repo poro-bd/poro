@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
         submitBtn.disabled = true;
         
         try {
-            const BASE_URL = 'http://localhost:5678';
+            
             const response = await fetch(`${BASE_URL}/webhook/poro-login`, {
                 method: 'POST',
                 headers: {

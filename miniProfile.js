@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:5678';
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const session = sessionStorage.getItem('session');
