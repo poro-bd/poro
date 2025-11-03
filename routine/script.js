@@ -62,8 +62,16 @@ document.addEventListener('click', function(event) {
 
 // Toggle day card (now allows multiple to be open)
 function toggleDay(dayName) {
-    const card = document.getElementById(`day-${dayName}`);
-    card.classList.toggle('active');
+    const allCards = document.querySelectorAll('.day-card');
+    const clickedCard = document.getElementById(`day-${dayName}`);
+
+    allCards.forEach(card => {
+        if (card !== clickedCard) {
+            card.classList.remove('active');
+        }
+    });
+
+    clickedCard.classList.toggle('active');
 }
 
 // Render days
