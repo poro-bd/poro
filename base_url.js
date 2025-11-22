@@ -1,1 +1,1 @@
-const BASE_URL = 'http://localhost:5678';
+const BASE_URL = 'https://n8nayman.solven.app';
