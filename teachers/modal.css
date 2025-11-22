@@ -171,3 +171,37 @@
     font-size: 1.5rem;
     line-height: 1.2;
 }
+
+.modal-layout {
+    display: flex;
+    gap: 30px;
+}
+
+.modal-main-info {
+    flex: 1;
+    min-width: 0;
+    padding-right: 15px; /* Add padding for separation from secondary info */
+}
+
+.modal-secondary-info {
+    flex: 1;
+    min-width: 0;
+    padding-left: 15px; /* Add padding for separation from main info */
+}
+
+@media (max-width: 768px) {
+    .modal-layout {
+        flex-direction: column;
+        gap: 0;
+    }
+    .modal-main-info {
+        padding-right: 0;
+        padding-bottom: 25px; /* Add spacing between sections on mobile */
+    }
+    .modal-secondary-info {
+        padding-left: 0;
+        margin-top: 25px; /* Add vertical spacing when stacked */
+        padding-top: 25px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}

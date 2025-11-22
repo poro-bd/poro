@@ -1,178 +1,7 @@
-// Teachers data
-const teachersData = [
-    {
-        id: 1,
-        name: 'Dr. Sarah Johnson',
-        profession: 'Mathematics',
-        phone: '+1 (555) 123-4567',
-        email: 'sarah.johnson@school.edu',
-        avatar: 'https://i.pravatar.cc/150?img=1',
-        notes: [
-            'Excellent at explaining complex algebra concepts',
-            'Very patient and approachable',
-            'Office hours: Monday & Wednesday 3-5 PM',
-            'Responds to emails within 24 hours'
-        ]
-    },
-    {
-        id: 2,
-        name: 'Prof. Michael Chen',
-        profession: 'Physics',
-        phone: '+1 (555) 234-5678',
-        email: 'michael.chen@school.edu',
-        avatar: 'https://i.pravatar.cc/150?img=33',
-        notes: [
-            'Makes physics fun with practical experiments',
-            'Strict about deadlines but fair grading',
-            'Best teacher for mechanics and thermodynamics',
-            'Holds extra revision sessions before exams'
-        ]
-    },
-    {
-        id: 3,
-        name: 'Ms. Emily Davis',
-        profession: 'Chemistry',
-        phone: '+1 (555) 345-6789',
-        email: 'emily.davis@school.edu',
-        avatar: 'https://i.pravatar.cc/150?img=5',
-        notes: [
-            'Lab safety is her top priority',
-            'Great at organic chemistry explanations',
-            'Provides detailed study materials',
-            'Available for doubt clearing on Fridays'
-        ]
-    },
-    {
-        id: 4,
-        name: 'Mr. James Wilson',
-        profession: 'Biology',
-        phone: '+1 (555) 456-7890',
-        email: 'james.wilson@school.edu',
-        avatar: 'https://i.pravatar.cc/150?img=12',
-        notes: [
-            'Passionate about ecology and evolution',
-            'Organizes great field trips',
-            'Encourages research projects',
-            'Very supportive of student initiatives'
-        ]
-    },
-    {
-        id: 5,
-        name: 'Dr. Lisa Anderson',
-        profession: 'English',
-        phone: '+1 (555) 567-8901',
-        email: 'lisa.anderson@school.edu',
-        avatar: 'https://i.pravatar.cc/150?img=9',
-        notes: [
-            'Excellent literature analysis skills',
-            'Helps improve writing and grammar',
-            'Organizes monthly book club meetings',
-            'Gives constructive feedback on essays'
-        ]
-    },
-    {
-        id: 6,
-        name: 'Prof. Robert Taylor',
-        profession: 'History',
-        phone: '+1 (555) 678-9012',
-        email: 'robert.taylor@school.edu',
-        avatar: 'https://i.pravatar.cc/150?img=14',
-        notes: [
-            'Makes history engaging with stories',
-            'Expert in world war history',
-            'Assigns interesting research topics',
-            'Uses multimedia in teaching'
-        ]
-    },
-    {
-        id: 7,
-        name: 'Dr. Amanda White',
-        profession: 'Mathematics',
-        phone: '+1 (555) 789-0123',
-        email: 'amanda.white@school.edu',
-        avatar: 'https://i.pravatar.cc/150?img=20',
-        notes: [
-            'Specializes in calculus and statistics',
-            'Provides extra practice problems',
-            'Very organized and structured teaching',
-            'Quick response to student queries'
-        ]
-    },
-    {
-        id: 8,
-        name: 'Mr. David Brown',
-        profession: 'Physics',
-        phone: '+1 (555) 890-1234',
-        email: 'david.brown@school.edu',
-        avatar: 'https://i.pravatar.cc/150?img=15',
-        notes: [
-            'Great at quantum physics explanations',
-            'Uses animations and simulations',
-            'Encourages critical thinking',
-            'Flexible with assignment submissions'
-        ]
-    },
-    {
-        id: 9,
-        name: 'Ms. Jennifer Lee',
-        profession: 'Chemistry',
-        phone: '+1 (555) 901-2345',
-        email: 'jennifer.lee@school.edu',
-        avatar: 'https://i.pravatar.cc/150?img=25',
-        notes: [
-            'Expert in inorganic chemistry',
-            'Patient with slow learners',
-            'Provides exam tips and tricks',
-            'Maintains detailed lab records'
-        ]
-    },
-    {
-        id: 10,
-        name: 'Prof. Thomas Garcia',
-        profession: 'Biology',
-        phone: '+1 (555) 012-3456',
-        email: 'thomas.garcia@school.edu',
-        avatar: 'https://i.pravatar.cc/150?img=13',
-        notes: [
-            'Specializes in human anatomy',
-            'Uses 3D models for teaching',
-            'Conducts practical lab sessions',
-            'Helpful with competitive exam prep'
-        ]
-    },
-    {
-        id: 11,
-        name: 'Dr. Maria Rodriguez',
-        profession: 'English',
-        phone: '+1 (555) 123-4560',
-        email: 'maria.rodriguez@school.edu',
-        avatar: 'https://i.pravatar.cc/150?img=32',
-        notes: [
-            'Focus on creative writing skills',
-            'Organizes poetry workshops',
-            'Encourages public speaking',
-            'Provides personalized feedback'
-        ]
-    },
-    {
-        id: 12,
-        name: 'Mr. Christopher Martinez',
-        profession: 'History',
-        phone: '+1 (555) 234-5601',
-        email: 'chris.martinez@school.edu',
-        avatar: 'https://i.pravatar.cc/150?img=11',
-        notes: [
-            'Expert in ancient civilizations',
-            'Uses documentary films in class',
-            'Organizes museum visits',
-            'Fair and transparent grading'
-        ]
-    }
-];
-
+let allTeachers = [];
 let currentPage = 1;
 const itemsPerPage = 6;
-let filteredTeachers = [...teachersData];
+let filteredTeachers = [];
 
 // Get page from URL
 function getPageFromURL() {
@@ -195,10 +24,10 @@ function filterTeachers() {
     const sortBy = document.getElementById('sortBy').value;
 
     // Filter
-    filteredTeachers = teachersData.filter(teacher => {
-        const matchesSearch = teacher.name.toLowerCase().includes(searchTerm) || 
-                                teacher.profession.toLowerCase().includes(searchTerm);
-        const matchesSubject = !subjectFilter || teacher.profession === subjectFilter;
+    filteredTeachers = allTeachers.filter(teacher => {
+        const matchesSearch = teacher.name.toLowerCase().includes(searchTerm) ||
+                                (teacher.title && teacher.title.toLowerCase().includes(searchTerm));
+        const matchesSubject = !subjectFilter || teacher.title === subjectFilter;
         return matchesSearch && matchesSubject;
     });
 
@@ -206,7 +35,7 @@ function filterTeachers() {
     if (sortBy === 'name') {
         filteredTeachers.sort((a, b) => a.name.localeCompare(b.name));
     } else if (sortBy === 'subject') {
-        filteredTeachers.sort((a, b) => a.profession.localeCompare(b.profession));
+        filteredTeachers.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
     }
 
     currentPage = 1;
@@ -223,12 +52,12 @@ function renderTeachers() {
     const teachersToShow = filteredTeachers.slice(startIndex, endIndex);
 
     grid.innerHTML = teachersToShow.map(teacher => `
-        <div class="teacher-card" onclick="openModal(${teacher.id})">
+        <div class="teacher-card" onclick="openModal('${teacher.phonenumber}')">
             <div class="teacher-avatar-wrapper">
-                <img src="${teacher.avatar}" alt="${teacher.name}" class="teacher-avatar">
+                <img src="${teacher.photourl || 'https://i.pravatar.cc/150'}" alt="${teacher.name}" class="teacher-avatar">
             </div>
             <h3 class="teacher-name">${teacher.name}</h3>
-            <p class="teacher-profession">${teacher.profession}</p>
+            <p class="teacher-profession">${teacher.title || 'N/A'}</p>
         </div>
     `).join('');
 }
@@ -279,7 +108,7 @@ function renderPagination() {
 function changePage(page) {
     const totalPages = Math.ceil(filteredTeachers.length / itemsPerPage);
     if (page < 1 || page > totalPages) return;
-    
+
     currentPage = page;
     updateURL(page);
     renderTeachers();
@@ -287,24 +116,122 @@ function changePage(page) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// Render rating stars
+function renderRatingStars(rating) {
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 !== 0;
+    let starsHtml = '';
+
+    for (let i = 0; i < fullStars; i++) {
+        starsHtml += '<i class="fas fa-star" style="color: #FFD700;"></i>'; // Gold star
+    }
+    if (halfStar) {
+        starsHtml += '<i class="fas fa-star-half-alt" style="color: #FFD700;"></i>'; // Half gold star
+    }
+    for (let i = 0; i < (5 - fullStars - (halfStar ? 1 : 0)); i++) {
+        starsHtml += '<i class="far fa-star" style="color: #FFD700;"></i>'; // Empty star
+    }
+    return starsHtml;
+}
+
 // Open modal
-function openModal(teacherId) {
-    const teacher = teachersData.find(t => t.id === teacherId);
-    if (!teacher) return;
-
-    document.getElementById('modalAvatar').src = teacher.avatar;
-    document.getElementById('modalName').textContent = teacher.name;
-    document.getElementById('modalProfession').textContent = teacher.profession;
-    document.getElementById('modalPhone').textContent = teacher.phone;
-    document.getElementById('modalPhone').href = `tel:${teacher.phone}`;
-    document.getElementById('modalEmail').textContent = teacher.email;
-    document.getElementById('modalEmail').href = `mailto:${teacher.email}`;
-    
-    const notesList = document.getElementById('modalNotes');
-    notesList.innerHTML = teacher.notes.map(note => `<li>${note}</li>`).join('');
-
+async function openModal(phonenumber) {
     document.getElementById('teacherModal').classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    // Clear previous content and show loading indicator
+    document.getElementById('modalAvatar').src = '';
+    document.getElementById('modalName').textContent = 'Loading...';
+    document.getElementById('modalProfession').textContent = '';
+    document.getElementById('modalPhone').textContent = '';
+    document.getElementById('modalPhone').href = '#';
+    document.getElementById('modalEmail').textContent = '';
+    document.getElementById('modalEmail').href = '#';
+    document.getElementById('modalNotes').innerHTML = '';
+    document.getElementById('modalRating').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    document.getElementById('modalAdditionalNotes').innerHTML = '';
+
+    const session = sessionStorage.getItem('session');
+    if (!session) {
+        console.error("No session found. Please log in.");
+        document.getElementById('modalName').textContent = 'Error: Not logged in';
+        return;
+    }
+
+    try {
+        const response = await fetch(`${BASE_URL}/webhook/poro-teacher`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ session: session, phonenumber: phonenumber })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const teacher = data[0]; // Backend returns an array, take the first item
+
+            if (teacher) {
+                document.getElementById('modalAvatar').src = teacher.photourl || 'https://i.pravatar.cc/150';
+                document.getElementById('modalName').textContent = teacher.name;
+                document.getElementById('modalProfession').textContent = teacher.title || 'N/A';
+                document.getElementById('modalPhone').textContent = teacher.phonenumber;
+                document.getElementById('modalPhone').href = `tel:${teacher.phonenumber}`;
+
+                const emailSection = document.getElementById('modalEmail').closest('.modal-section');
+                const notesSection = document.getElementById('modalNotes').closest('.modal-section');
+                const additionalNotesSection = document.getElementById('additionalNotesSection');
+                const collegeEIINSection = document.getElementById('collegeEIINSection');
+
+                if (teacher.email) {
+                    document.getElementById('modalEmail').textContent = teacher.email;
+                    document.getElementById('modalEmail').href = `mailto:${teacher.email}`;
+                    emailSection.style.display = 'block';
+                } else {
+                    emailSection.style.display = 'none';
+                }
+                
+                if (teacher.notes && teacher.notes.length > 0) {
+                    const notesList = document.getElementById('modalNotes');
+                    notesList.innerHTML = teacher.notes.map(note => `<li>${note}</li>`).join('');
+                    notesSection.style.display = 'block';
+                } else {
+                    notesSection.style.display = 'none';
+                }
+
+                if (teacher.details) {
+                    document.getElementById('modalDetails').textContent = teacher.details;
+                    detailsSection.style.display = 'block';
+                } else {
+                    detailsSection.style.display = 'none';
+                }
+
+                if (teacher.additionalnotes && teacher.additionalnotes.length > 0) {
+                    const additionalNotesList = document.getElementById('modalAdditionalNotes');
+                    additionalNotesList.innerHTML = teacher.additionalnotes.map(note => `<li>${note}</li>`).join('');
+                    additionalNotesSection.style.display = 'block';
+                } else {
+                    additionalNotesSection.style.display = 'none';
+                }
+
+                document.getElementById('modalRating').innerHTML = teacher.rating ? renderRatingStars(teacher.rating) : 'N/A';
+            } else {
+                document.getElementById('modalName').textContent = 'Teacher not found';
+                document.getElementById('modalRating').innerHTML = '';
+            }
+        } else if (response.status === 404) {
+            document.getElementById('modalName').textContent = 'Teacher not found';
+            document.getElementById('modalRating').innerHTML = '';
+        } else {
+            console.error('Failed to fetch specific teacher:', response.status, response.statusText);
+            document.getElementById('modalName').textContent = 'Error fetching details';
+            document.getElementById('modalRating').innerHTML = '';
+        }
+    } catch (error) {
+        console.error('Error fetching specific teacher:', error);
+        document.getElementById('modalName').textContent = 'Network error';
+        document.getElementById('modalRating').innerHTML = '';
+    }
 }
 
 // Close modal
@@ -330,20 +257,52 @@ function toggleSidebar() {
 document.addEventListener('click', function(event) {
     const sidebar = document.getElementById('sidebar');
     const menuBtn = document.querySelector('.mobile-menu-btn');
-    
-    if (window.innerWidth <= 768 && 
-        sidebar.classList.contains('active') && 
-        !sidebar.contains(event.target) && 
+
+    if (window.innerWidth <= 768 &&
+        sidebar.classList.contains('active') &&
+        !sidebar.contains(event.target) &&
         !menuBtn.contains(event.target)) {
         sidebar.classList.remove('active');
     }
 });
 
+async function fetchTeachers() {
+    const session = sessionStorage.getItem('session');
+    if (!session) {
+        // Handle not logged in case
+        console.error("No session found. Please log in.");
+        // Maybe redirect to login page
+        // window.location.href = '/login';
+        return;
+    }
+
+    try {
+        const response = await fetch(`${BASE_URL}/webhook/poro-teacher`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ session: session })
+        });
+
+        if (response.ok) {
+            allTeachers = await response.json();
+            filteredTeachers = [...allTeachers];
+            currentPage = getPageFromURL();
+            renderTeachers();
+            renderPagination();
+        } else {
+            console.error('Failed to fetch teachers:', response.status, response.statusText);
+        }
+    } catch (error) {
+        console.error('Error fetching teachers:', error);
+    }
+}
+
+
 // Initialize
 window.addEventListener('DOMContentLoaded', function() {
-    currentPage = getPageFromURL();
-    renderTeachers();
-    renderPagination();
+    fetchTeachers();
 });
 
 // Handle browser back/forward
