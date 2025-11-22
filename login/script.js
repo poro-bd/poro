@@ -64,12 +64,19 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Clear previous error
         errorMessage.textContent = '';
-        
+
         // Show loading state
         const submitBtn = loginForm.querySelector('.btn-primary');
         const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = '<span class="btn-icon login-icon"><i class="fas fa-spinner fa-spin"></i></span> Logging in...';
         submitBtn.disabled = true;
+
+        if (!id || !password) {
+            errorMessage.textContent = 'ID and password are required';
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            return;
+        }
         
         try {
             

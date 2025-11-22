@@ -1,0 +1,77 @@
+/* Status Message */
+.status-message {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-top: 20px;
+    display: none;
+    align-items: center;
+    gap: 12px;
+    animation: fadeIn 0.3s ease;
+}
+
+.status-message.success {
+    background: rgba(76, 175, 80, 0.2);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.status-message.error {
+    background: rgba(244, 67, 54, 0.2);
+    border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.status-message.show {
+    display: flex;
+}
+
+.status-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.status-message.success .status-icon {
+    background: rgba(76, 175, 80, 0.3);
+}
+
+.status-message.error .status-icon {
+    background: rgba(244, 67, 54, 0.3);
+}
+
+.status-icon svg {
+    width: 16px;
+    height: 16px;
+    fill: white;
+}
+
+.status-icon.shake {
+    animation: status-shake 0.3s ease-in-out 0s 3;
+}
+
+@keyframes status-shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-4px);
+    }
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

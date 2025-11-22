@@ -1,0 +1,161 @@
+/* Announcements Input */
+.announcements-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.announcements-input-area {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.announcements-main-input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 0.95rem;
+    flex: 1;
+    resize: none;
+    min-height: 60px;
+    max-height: 150px;
+    overflow-y: auto;
+    font-family: inherit;
+}
+
+.announcements-main-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.announcements-main-input:focus {
+    outline: none;
+}
+
+.add-announcement-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+}
+
+.add-announcement-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: white;
+}
+
+.add-announcement-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.add-announcement-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+/* Announcements List */
+.announcements-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.announcement-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.announcement-item.deleting {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.announcement-bullet {
+    color: #ff6b6b;
+    font-weight: bold;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.announcement-text {
+    color: white;
+    font-size: 0.95rem;
+    flex: 1;
+    word-break: break-word;
+}
+
+.delete-announcement {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    margin-top: 2px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-announcement:hover {
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+}
+
+.delete-announcement svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .announcements-input-area {
+        flex-direction: column;
+    }
+
+    .add-announcement-btn {
+        align-self: flex-end;
+        width: auto;
+        padding: 8px 16px;
+    }
+}
+
+

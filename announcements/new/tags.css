@@ -1,0 +1,126 @@
+/* Tags Input */
+.tags-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tags-input-area {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.tags-input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 0.95rem;
+    flex: 1;
+    font-family: inherit;
+}
+
+.tags-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.tags-input:focus {
+    outline: none;
+}
+
+.add-tag-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+}
+
+.add-tag-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: white;
+}
+
+.add-tag-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+/* Tags List */
+.tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: white;
+    animation: slideIn 0.3s ease;
+}
+
+.tag-item .tag-text {
+    white-space: nowrap;
+}
+
+.delete-tag {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.delete-tag:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.delete-tag svg {
+    width: 12px;
+    height: 12px;
+    fill: white;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .tags-input-area {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .add-tag-btn {
+        align-self: flex-end;
+        width: auto;
+        padding: 8px 16px;
+    }
+}
+
+

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poro - New Announcement</title>
+    <link rel="stylesheet" href="../variables.css">
+    <link rel="stylesheet" href="../layout.css">
+    <link rel="stylesheet" href="../sidebar.css">
+    <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="announcements.css">
+    <link rel="stylesheet" href="tags.css">
+    <link rel="stylesheet" href="status.css">
+    <link rel="stylesheet" href="../responsive.css">
+    <link rel="stylesheet" href="/collegeLogo.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" onclick="toggleSidebar()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+            </svg>
+        </button>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">Poro</div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="/dashboard" class="nav-item">
+                    <span class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                        </svg>
+                    </span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/settings" class="nav-item">
+                    <span class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+                        </svg>
+                    </span>
+                    <span>Settings</span>
+                </a>
+                <a href="/announcements" class="nav-item active">
+                    <span class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                        </svg>
+                    </span>
+                    <span>Announcements</span>
+                </a>
+                <a href="/routine" class="nav-item">
+                    <span class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                        </svg>
+                    </span>
+                    <span>Routine</span>
+                </a>
+                <a href="/teachers" class="nav-item">
+                    <span class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                        </svg>
+                    </span>
+                    <span>Teachers</span>
+                </a>
+                <a href="/homework" class="nav-item">
+                    <span class="nav-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                        </svg>
+                    </span>
+                    <span>Homework</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="/profile" class="user-profile">
+                    <div class="user-avatar"></div>
+                    <div class="user-info">
+                        <div class="user-name"></div>
+                        <div class="user-meta"></div>
+                    </div>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-header">
+                <h1 class="page-title">New Announcement</h1>
+                <div class="container">
+                    <div class="card">
+                        <div class="bg"></div>
+                        <div class="card-content">
+                            <h2 class="college-name"></h2>
+                            <div>
+                                <p class="eiin-label">EIIN Number</p>
+                                <p class="eiin-number"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="logo"></div>
+                </div>
+            </div>
+
+            <!-- Form Container -->
+            <div class="form-container">
+                <!-- Date Picker Section -->
+                <div class="form-section">
+                    <label class="form-label">Date</label>
+                    <div class="date-picker-wrapper">
+                        <input type="date" class="date-input" id="dateInput">
+                        <div class="date-display" id="dateDisplay"></div>
+                    </div>
+                </div>
+
+                <!-- Announcements Section -->
+                <div class="form-section">
+                    <label class="form-label">Announcements</label>
+                    <div class="announcements-input-container">
+                        <div class="announcements-input-area">
+                            <textarea class="announcements-main-input" id="announcementInput" placeholder="Enter announcement item..." oninput="handleAnnouncementInput(this)" onkeydown="handleAnnouncementEnter(event, this)"></textarea>
+                            <button class="add-announcement-btn" id="addAnnouncementBtn" onclick="addAnnouncement()" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="announcements-list" id="announcementsList"></div>
+                    </div>
+                </div>
+
+                <!-- Priority Section -->
+                <div class="form-section">
+                    <label class="form-label">Priority</label>
+                    <select class="priority-select" id="prioritySelect">
+                        <option value="normal" selected>Normal</option>
+                        <option value="high">High</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                </div>
+
+                <!-- Tags Section -->
+                <div class="form-section">
+                    <label class="form-label">Tags <span class="optional-label">(Optional)</span></label>
+                    <div class="tags-input-container">
+                        <div class="tags-input-area">
+                            <input type="text" class="tags-input" id="tagInput" placeholder="Enter tag and press Enter..." onkeydown="handleTagEnter(event, this)">
+                            <button class="add-tag-btn" id="addTagBtn" onclick="addTag()">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="tags-list" id="tagsList"></div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="submit-container">
+                    <button class="submit-btn" id="submitBtn" onclick="submitAnnouncement()">
+                        <span class="submit-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M2.5 3.5l19 8.5-19 8.5L7 12 2.5 3.5zm5.5 8.5l-3 5.7L18.5 12 5 5.3l3 6.7z"/>
+                            </svg>
+                        </span>
+                        <span class="submit-label">Submit</span>
+                    </button>
+                </div>
+
+                <!-- Status Message -->
+                <div class="status-message" id="statusMessage">
+                    <div class="status-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                    </div>
+                    <span id="statusText">Announcement submitted successfully!</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="sidebar.js"></script>
+    <script src="date.js"></script>
+    <script src="announcements.js"></script>
+    <script src="tags.js"></script>
+    <script src="submit.js"></script>
+    <script src="/base_url.js"></script>
+    <script src="../../miniProfile.js" defer></script>
+    <script src="/collegeLogo.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+</body>
+</html>
+
